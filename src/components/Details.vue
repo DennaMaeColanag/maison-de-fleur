@@ -22,18 +22,22 @@ export default {
 </script>
 
 <template>
-    <div class="fixed top-0 inset-0">
-        <div class="w-full h-screen bg-black/10 backdrop-blur-2xl absolute top-0"></div>
-        <div class=" w-full h-fit flex justify-center items-center mt-50 relative top-0">
-            <div class="grid grid-cols-1">
-                <div v-for="(detail, index) in toViewDetails" :key="index.id" class="bg-[#D9D9D9] w-190 h-fit py-3 ">
-                    <div class="flex justify-end p-3">
-                       <button @click="exit(false)" class="cursor-pointer font-bold hover:text-red-500">X</button>
+    <div class="fixed top-0 inset-0 z-50 overflow-y-auto">
+        <!-- Backdrop -->
+        <div class="w-full h-full min-h-screen bg-black/10 backdrop-blur-2xl fixed inset-0"></div>
+        
+        <!-- Modal Container: responsive margin and padding for mobile view -->
+        <div class="w-full min-h-screen flex justify-center items-center p-4 relative z-10">
+            <div class="grid grid-cols-1 w-full max-w-2xl">
+                <div v-for="(detail, index) in toViewDetails" :key="index.id" class="bg-[#D9D9D9] w-full h-fit py-3 px-4 rounded-3xl shadow-xl">
+                    <div class="flex justify-end p-1">
+                       <button @click="exit(false)" class="cursor-pointer font-bold hover:text-red-500 text-xl px-2">X</button>
                     </div>
-                    <div class="flex justify-center items-center gap-10">
-                        <img class="w-90 h-80 rounded-3xl" :src="detail.img" alt="">
-                        <div class="w-80 space-y-2">
-                            <h1 class="text-2xl font-bold font-arial">{{ detail.details }}</h1>
+                    <!-- Responsive content wrapper: column on mobile, row on larger screens -->
+                    <div class="flex flex-col sm:flex-row justify-center items-center gap-6 sm:gap-10 pb-4">
+                        <img class="w-full sm:w-80 h-64 sm:h-80 object-cover rounded-3xl" :src="detail.img" alt="">
+                        <div class="w-full sm:w-80 space-y-2">
+                            <h1 class="text-xl sm:text-2xl font-bold font-arial">{{ detail.details }}</h1>
                             <div class="flex items-center gap-3">
                                 <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640">
                                     <path fill="rgb(27, 26, 26)"
@@ -57,25 +61,25 @@ export default {
                                 </svg>
                                 <p class="text-[#CC992B] font-arial font-semibold">Free Shipping</p>
                             </div>
-                            <div>
+                            <div class="space-y-2">
                                 <p class="font-arial font-bold text-md">Description: <span class="font-semibold"> {{ detail.description }}</span></p>
                                 <div class="flex items-center gap-3">
                                     <p class="font-arial font-bold text-md">Color:</p>
                                     <div class="flex items-center gap-1">
-                                        <button class="rounded-full p-4 bg-[#fd8fc8]"></button>
-                                        <button class="rounded-full p-4 bg-[#F5F064]"></button>
-                                        <button class="rounded-full p-4 bg-[#F5C536]"></button>
-                                        <button class="rounded-full p-4 bg-white"></button>
+                                        <button class="rounded-full p-3 sm:p-4 bg-[#fd8fc8]"></button>
+                                        <button class="rounded-full p-3 sm:p-4 bg-[#F5F064]"></button>
+                                        <button class="rounded-full p-3 sm:p-4 bg-[#F5C536]"></button>
+                                        <button class="rounded-full p-3 sm:p-4 bg-white"></button>
                                     </div>
                                 </div>
                                 <p class="font-arial font-bold text-md">Price:<span class="font-semibold">₱{{
                                     detail.price
-                                        }}.00</span></p>
+                                }}.00</span></p>
                                 <p class="font-arial font-bold text-md">Tags: <span class="font-semibold text-xs">{{
                                     detail.tags
-                                        }}</span></p>
+                                }}</span></p>
                                 <button @click="buybtn(index)"
-                                    class="bg-[#e98614e0] px-8 py-2 rounded-full text-white font-arial font-semibold mt-5">BUY</button>
+                                    class="bg-[#e98614e0] px-8 py-2 rounded-full text-white font-arial font-semibold mt-3 cursor-pointer">BUY</button>
                             </div>
                         </div>
                     </div>

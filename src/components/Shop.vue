@@ -171,14 +171,6 @@ export default {
 
                 },
             ],
-            // AddProducts: [
-            //     {
-            //         id: 1,
-            //         img:"",
-            //         Name:"",
-            //         Price:600,
-            //     }
-            // ],
             newProduct: [],
             flowerssection: true,
             shopmodal: false,
@@ -199,12 +191,10 @@ export default {
 
         detailBtn(index, i) {
             this.$emit('to-detail', this.detailCard[index], i);
-            // this.detailModal = true;
         },
 
         toOrders(or) {
             this.$emit('to-order', or);
-
         },
 
         showAddModal() {
@@ -218,19 +208,19 @@ export default {
         newDetailBtn(index, i){
             this.$emit('tonew-detail', this.newProduct[index], i)
         }
-
     }
 }
 </script>
 
 <template>
-    <div class="bg-[#FAE6ED] w-full h-fit pb-10">
+    <div class="bg-[#FAE6ED] w-full h-fit pb-10 overflow-x-hidden">
 
         <div v-if="flowerssection">
-            <div class="flex justify-between items-center px-20 pt-35">
-                <p class="text-gray-600 text-3xl">Shop Our Collections</p>
+          
+            <div class="flex flex-col sm:flex-row justify-between items-center px-6 sm:px-20 pt-20 sm:pt-35 gap-4">
+                <p class="text-gray-600 text-2xl sm:text-3xl text-center sm:text-left">Shop Our Collections</p>
                 <div class="flex gap-10">
-                    <button @click="viewAll(index)"
+                    <button @click="viewAll(0)"
                         class="bg-[#ee0f3cbd] px-8 py-2 rounded-full shadow-lg shadow-black/50 text-white text-lg flex items-center">VIEW
                         ALL<svg class="w-8 h-7" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640">
                             <path fill="rgb(255, 255, 255)"
@@ -239,48 +229,51 @@ export default {
                 </div>
             </div>
 
-            <div class="flex justify-center items-center gap-10 py-10 ">
-                <div v-for="(card, index) in cards" :key="card.id"
-                    class="bg-[#787075cb] w-100 h-100 rounded-3xl shadow-lg shadow-black/50">
-                    <div class="">
-                        <img class="w-full h-80 rounded-t-3xl" :src="card.img" alt="">
-                        <p class="text-black font-bold text-xl px-3">{{ card.detail }}</p>
-                        <div class="flex justify-between items-center px-3">
-                            <p class="text-gray-800 font-semibold text-lg"> ₱{{ card.price }}.00</p>
-                            <button @click="viewAll(index)" class="rounded-full bg-[#eaea15] p-2">
-                                <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640">
-                                    <path fill="rgb(255, 255, 255)"
-                                        d="M598.6 342.6C611.1 330.1 611.1 309.8 598.6 297.3L470.6 169.3C458.1 156.8 437.8 156.8 425.3 169.3C412.8 181.8 412.8 202.1 425.3 214.6L498.7 288L64 288C46.3 288 32 302.3 32 320C32 337.7 46.3 352 64 352L498.7 352L425.3 425.4C412.8 437.9 412.8 458.2 425.3 470.7C437.8 483.2 458.1 483.2 470.6 470.7L598.6 342.7z" />
-                                </svg>
-                            </button>
+           
+            <div class="flex justify-center items-center py-10 px-6">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 w-full max-w-6xl">
+                    <div v-for="(card, index) in cards" :key="card.id"
+                        class="bg-[#787075cb] w-full h-400px rounded-3xl shadow-lg shadow-black/50 overflow-hidden mx-auto">
+                        <div class="h-full flex flex-col justify-between pb-4">
+                            <img class="w-full h-64 sm:h-80 object-cover rounded-t-3xl" :src="card.img" alt="">
+                            <p class="text-black font-bold text-xl px-3 truncate">{{ card.detail }}</p>
+                            <div class="flex justify-between items-center px-3">
+                                <p class="text-gray-800 font-semibold text-lg"> ₱{{ card.price }}.00</p>
+                                <button @click="viewAll(index)" class="rounded-full bg-[#eaea15] p-2">
+                                    <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640">
+                                        <path fill="rgb(255, 255, 255)"
+                                            d="M598.6 342.6C611.1 330.1 611.1 309.8 598.6 297.3L470.6 169.3C458.1 156.8 437.8 156.8 425.3 169.3C412.8 181.8 412.8 202.1 425.3 214.6L498.7 288L64 288C46.3 288 32 302.3 32 320C32 337.7 46.3 352 64 352L498.7 352L425.3 425.4C412.8 437.9 412.8 458.2 425.3 470.7C437.8 483.2 458.1 483.2 470.6 470.7L598.6 342.7z" />
+                                    </svg>
+                                </button>
+                            </div>
                         </div>
                     </div>
-
                 </div>
-
             </div>
-            <div class="flex justify-center">
-                <div class="bg-[#fe305666] w-350 h-80 flex items-center ">
-                    <div class="w-100 px-5 space-y-2">
-                        <p class="text-2xl font-arial text-gray-500 font-bold">FLOWERS THAT TELL BEAUTIFUL STORIES</p>
-                        <p class=" text-gray-500 font-arial text-md ">We source the finest blooms and design
+
+            
+            <div class="flex justify-center px-6">
+                <div class="bg-[#fe305666] w-full max-w-6xl h-auto md:h-80 flex flex-col md:flex-row items-center rounded-3xl overflow-hidden">
+                    <div class="w-full md:w-100 p-6 md:px-5 space-y-2">
+                        <p class="text-xl md:text-2xl font-arial text-gray-500 font-bold">FLOWERS THAT TELL BEAUTIFUL STORIES</p>
+                        <p class="text-gray-500 font-arial text-md">We source the finest blooms and design
                             with heart to bring beauty, joy, and meaning to every moment.</p>
                         <button
-                            class="bg-[#ee0f3cbd] px-8 py-2  rounded-full shadow-lg shadow-black/50 text-white text-lg ml-50 mt-5">OUR
+                            class="bg-[#ee0f3cbd] px-6 py-2 rounded-full shadow-lg shadow-black/50 text-white text-lg mt-5 block mx-auto md:ml-50">OUR
                             STORY
                         </button>
                     </div>
-                    <div>
-                        <img class="w-250 h-80 object-fit rounded-l-3xl"
+                    <div class="w-full md:w-auto">
+                        <img class="w-full md:w-600px h-60 md:h-80 object-cover rounded-b-3xl md:rounded-l-3xl md:rounded-r-none"
                             src="https://i.pinimg.com/1200x/4f/ea/51/4fea51b444caa855e8c6a2e705ffaaf5.jpg" alt="">
                     </div>
-
                 </div>
             </div>
         </div>
+
         <div v-if="shopmodal" class="">
-            <div class="flex justify-between items-center px-20 pt-35">
-                <p class="text-gray-600 text-3xl">Our Collections</p>
+            <div class="flex flex-col sm:flex-row justify-between items-center px-6 sm:px-20 pt-20 sm:pt-35 gap-4">
+                <p class="text-gray-600 text-2xl sm:text-3xl">Our Collections</p>
                 <button @click="toOrders('Orders')"
                     class="bg-[#ee0f3cbd] px-8 py-2 rounded-full shadow-lg shadow-black/50 text-white text-lg flex items-center">ORDERS<svg
                         class="w-8 h-7" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640">
@@ -289,55 +282,52 @@ export default {
                     </svg></button>
             </div>
 
-            <div class="flex justify-center items-center py-10">
-                <div class="grid grid-cols-3 gap-10">
+         
+            <div class="flex justify-center items-center py-10 px-6">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-10 w-full max-w-6xl">
                     <div v-for="(card1, index) in cards2" :key="index.id"
-                        class="bg-[#787075cb] w-100 h-100 rounded-3xl shadow-lg shadow-black/50">
-                        <div class="">
-                            <img class="w-full h-80 rounded-t-3xl" :src="card1.img" alt="">
-                            <p class="text-black font-bold text-xl px-3">{{ card1.detail }}</p>
+                        class="bg-[#787075cb] w-full h-400px rounded-3xl shadow-lg shadow-black/50 overflow-hidden mx-auto">
+                        <div class="h-full flex flex-col justify-between pb-4">
+                            <img class="w-full h-64 sm:h-80 object-cover rounded-t-3xl" :src="card1.img" alt="">
+                            <p class="text-black font-bold text-xl px-3 truncate">{{ card1.detail }}</p>
                             <div class="flex justify-between items-center px-3">
                                 <p class="text-gray-800 font-semibold text-lg"> ₱{{ card1.price }}.00</p>
                                 <button @click="detailBtn(index, true)"
-                                    class="rounded-full bg-[#eaea15] px-2 py-1 cursor-pointer">
+                                    class="rounded-full bg-[#eaea15] px-4 py-1 cursor-pointer">
                                     DETAILS
                                 </button>
                             </div>
                         </div>
-
                     </div>
                 </div>
             </div>
 
-
-            <!-- for adding products -->
+        
             <div class="">
-                <div class="flex justify-center items-center py-10">
-                    <div class="grid grid-cols-3 gap-10">
+                <div class="flex justify-center items-center py-10 px-6">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-10 w-full max-w-6xl">
                         <div v-for="(addP, index) in newAddProduct" :key="addP.id"
-                            class="bg-[#787075cb] w-100 h-100 rounded-3xl shadow-lg shadow-black/50">
-                            <div class="relative">
-                                <div class="absolute -right-3 -top-5">
-                                    <h1 class="bg-red-600 px-8 py-2 rounded-3xl text-white font-bold">New</h1>
+                            class="bg-[#787075cb] w-full h-400px rounded-3xl shadow-lg shadow-black/50 relative mx-auto overflow-hidden">
+                            <div class="h-full flex flex-col justify-between pb-4">
+                                <div class="relative">
+                                    <div class="absolute -right-3 -top-5 z-10">
+                                        <h1 class="bg-red-600 px-6 py-1 rounded-3xl text-white font-bold text-sm">New</h1>
+                                    </div>
+                                    <img class="w-full h-64 sm:h-80 object-cover rounded-t-3xl" :src="addP.img" alt="">
                                 </div>
-                                    <img class="w-full h-80 rounded-t-3xl" :src="addP.img" alt="">
-                                <p class="text-black font-bold text-xl px-3">{{ addP.details }}</p>
+                                <p class="text-black font-bold text-xl px-3 truncate">{{ addP.details }}</p>
                                 <div class="flex justify-between items-center px-3">
                                     <p class="text-gray-800 font-semibold text-lg"> ₱{{ addP.price }}.00</p>
                                     <button @click="newDetailBtn(index, true)"
-                                        class="rounded-full bg-[#eaea15] px-2 py-1 cursor-pointer">
+                                        class="rounded-full bg-[#eaea15] px-4 py-1 cursor-pointer">
                                         DETAILS
                                     </button>
                                 </div>
                             </div>
-
                         </div>
                     </div>
                 </div>
-
             </div>
         </div>
-
-        
     </div>
 </template>
